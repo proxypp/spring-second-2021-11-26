@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.micol.lms.meber.service.MemberMapper">
+	<select id="memberSelectList" parameterType="String" resultType="co.micol.lms.meber.service.MemberVO">
+		SELECT * FROM MEMBER WHERE
+		<if test='status == "A"'>1 = 1</if>
+		<if test='status == "C"'>STATUS = 'C'</if>
+		<if test='status == "U"'>STATUS = 'U'</if>
+		<if test='status == "D"'>STATUS = 'D'</if>				
+	</select>
+	<select id="memberSelect" resultType="co.micol.lms.meber.service.MemberVO">
+		SELECT * FROM MEMBER WHERE id = #{id}
+		<if test="password != null">
+			AND PASSWORD = #{password}
+		</if>
+	</select>
+	<select id="isCheckId" parameterType="String" resultType="boolean">
+		SELECT CASE  WHEN (COUNT(*) = 1) THEN 0 ELSE 1 END
+		FROM MEMBER
+		WHERE ID = #{id}
+	</select>
+	<insert id="memberInsert" parameterType="co.micol.lms.meber.service.MemberVO">
+		
+	</insert>
+	<update id="memberDelete" parameterType="co.micol.lms.meber.service.MemberVO">
+		UPDATE MEMBER SET STATUS = 'D' WHERE ID = #{id}
+	</update>
+	<update id="memberUpdate" parameterType="co.micol.lms.meber.service.MemberVO">
+			
+	</update>
+
+</mapper>
